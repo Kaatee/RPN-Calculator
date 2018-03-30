@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.kasia.rpncalculator.MainActivity">
+
+    <Button
+        android:id="@+id/button0"
+        android:layout_width="63dp"
+        android:layout_height="wrap_content"
+        android:onClick="button0Handle"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dotButton"
+        app:layout_constraintTop_toBottomOf="@+id/button8" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="73dp"
+        android:layout_height="wrap_content"
+        android:onClick="button1Handle"
+        android:text="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterButton" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="68dp"
+        android:layout_height="wrap_content"
+        android:onClick="button2Handle"
+        android:text="2"
+        app:layout_constraintStart_toEndOf="@+id/button1"
+        app:layout_constraintTop_toBottomOf="@+id/enterButton" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:onClick="button3Handle"
+        android:text="3"
+        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/settingsButton" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:onClick="button4Handle"
+        android:text="4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button1" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:onClick="button5Handle"
+        android:text="5"
+        app:layout_constraintStart_toEndOf="@+id/button4"
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="67dp"
+        android:layout_height="wrap_content"
+        android:onClick="button6Handle"
+        android:text="6"
+        app:layout_constraintStart_toEndOf="@+id/button5"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:onClick="button7Handle"
+        android:text="7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="62dp"
+        android:layout_height="wrap_content"
+        android:onClick="button8Handle"
+        android:text="8"
+        app:layout_constraintStart_toEndOf="@+id/button7"
+        app:layout_constraintTop_toBottomOf="@+id/button5" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:onClick="button9Handle"
+        android:text="9"
+        app:layout_constraintStart_toEndOf="@+id/button8"
+        app:layout_constraintTop_toBottomOf="@+id/button6" />
+
+    <Button
+        android:id="@+id/dotButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:onClick="buttonDotHandle"
+        android:text="."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button7" />
+
+    <Button
+        android:id="@+id/changeSignButton"
+        android:layout_width="63dp"
+        android:layout_height="wrap_content"
+        android:onClick="buttonChangeSignHandle"
+        android:text="+/-"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button0"
+        app:layout_constraintTop_toBottomOf="@+id/button8" />
+
+    <Button
+        android:id="@+id/plusButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="buttonPlusHandle"
+        android:text="+"
+        app:layout_constraintStart_toEndOf="@+id/settingsButton"
+        app:layout_constraintTop_toBottomOf="@+id/listView" />
+
+    <Button
+        android:id="@+id/minusButton"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:onClick="buttonMinusHandle"
+        android:text="+"
+        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintTop_toBottomOf="@+id/settingsButton" />
+
+    <Button
+        android:id="@+id/multiplicateButton"
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:onClick="buttonMultipleHandle"
+        android:text="*"
+        app:layout_constraintStart_toEndOf="@+id/button6"
+        app:layout_constraintTop_toBottomOf="@+id/minusButton" />
+
+    <Button
+        android:id="@+id/devButton"
+        android:layout_width="67dp"
+        android:layout_height="wrap_content"
+        android:onClick="buttonDevHandle"
+        android:text="/"
+        app:layout_constraintStart_toEndOf="@+id/button9"
+        app:layout_constraintTop_toBottomOf="@+id/multiplicateButton" />
+
+    <Button
+        android:id="@+id/powButton"
+        android:layout_width="69dp"
+        android:layout_height="wrap_content"
+        android:onClick="buttonPowHandle"
+        android:text="yPOWx"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/changeSignButton"
+        app:layout_constraintTop_toBottomOf="@+id/button9" />
+
+    <Button
+        android:id="@+id/sqrtButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="buttonSqrtHandle"
+        android:text="sqrt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/plusButton"
+        app:layout_constraintTop_toTopOf="@+id/plusButton" />
+
+    <Button
+        android:id="@+id/dropButton"
+        android:layout_width="101dp"
+        android:layout_height="wrap_content"
+        android:onClick="buttonDropHandle"
+        android:text="drop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/minusButton"
+        app:layout_constraintTop_toBottomOf="@+id/plusButton" />
+
+    <Button
+        android:id="@+id/swapButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="buttonSwapHandle"
+        android:text="swap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/multiplicateButton"
+        app:layout_constraintTop_toBottomOf="@+id/dropButton" />
+
+    <Button
+        android:id="@+id/enterButton"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        android:onClick="buttonEnterHandle"
+        android:text="enter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listView" />
+
+    <Button
+        android:id="@+id/acButton"
+        android:layout_width="107dp"
+        android:layout_height="wrap_content"
+        android:onClick="buttonACHandle"
+        android:text="AC"
+        app:layout_constraintStart_toEndOf="@+id/devButton"
+        app:layout_constraintTop_toBottomOf="@+id/multiplicateButton" />
+
+    <Button
+        android:id="@+id/undoButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="buttonUndoHandle"
+        android:text="undo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/powButton"
+        app:layout_constraintTop_toBottomOf="@+id/devButton" />
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:onClick="buttonSettingsHandle"
+        android:text="SETTINGS"
+        app:layout_constraintStart_toEndOf="@+id/enterButton"
+        app:layout_constraintTop_toBottomOf="@+id/listView" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="368dp"
+        android:layout_height="263dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.074"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
