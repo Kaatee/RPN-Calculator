@@ -2,7 +2,6 @@ package com.example.kasia.rpncalculator
 
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -15,7 +14,6 @@ import com.example.kasia.rpncalculator.R.layout.activity_main
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Math.pow
 import java.lang.Math.sqrt
-import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
@@ -25,10 +23,13 @@ class MainActivity : AppCompatActivity() {
     var tmp : Int = 0;
     var tmpFloat: Int = 0
     var isFloat : Boolean = false
+    var isTyping :Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
+
+        //val textView = findViewById<ListView>(R.id.textView)
 
         button0.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: 0", Toast.LENGTH_LONG).show();
@@ -97,12 +98,21 @@ class MainActivity : AppCompatActivity() {
 
         enterButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: ENTER", Toast.LENGTH_LONG).show();
-            var x:String = tmp.toString()+"."+tmpFloat.toString()
-            var y: Float = x.toFloat()
-            stackOfNumbers.add(y)
-            tmp = 0;
-            tmpFloat = 0
-            isFloat = false
+
+            if(isTyping){
+                var x:String = tmp.toString()+"."+tmpFloat.toString()
+                var y: Float = x.toFloat()
+                stackOfNumbers.add(y)
+                tmp = 0;
+                tmpFloat = 0
+                isFloat = false
+                isTyping = false
+            }
+            else{
+                stackOfNumbers.add(stackOfNumbers.get(stackOfNumbers.size-1))
+            }
+
+
             val listView = findViewById<ListView>(R.id.listView)
             listView.adapter = MyCustomAdapter(this, stackOfNumbers)
         }
@@ -181,18 +191,37 @@ class MainActivity : AppCompatActivity() {
 
         dropButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: DROP", Toast.LENGTH_LONG).show();
+            stackOfNumbers.removeAt(stackOfNumbers.size-1)
+            val listView = findViewById<ListView>(R.id.listView)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
         }
 
         swapButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: SWAP", Toast.LENGTH_LONG).show();
+            val tmp1: Float = stackOfNumbers.get(stackOfNumbers.size-1)
+            val tmp2: Float = stackOfNumbers.get(stackOfNumbers.size-2)
+            stackOfNumbers.removeAt(stackOfNumbers.size-1)
+            stackOfNumbers.removeAt(stackOfNumbers.size-1)
+            stackOfNumbers.add(tmp1)
+            stackOfNumbers.add(tmp2)
+            val listView = findViewById<ListView>(R.id.listView)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
         }
 
         acButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: AC", Toast.LENGTH_LONG).show();
+            stackOfNumbers.clear()
+            val listView = findViewById<ListView>(R.id.listView)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
         }
 
         changeSignButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: +-", Toast.LENGTH_LONG).show();
+            val tmp : Float = stackOfNumbers.get(stackOfNumbers.size-1)
+            stackOfNumbers.removeAt(stackOfNumbers.size-1)
+            stackOfNumbers.add((-1)*tmp)
+            val listView = findViewById<ListView>(R.id.listView)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
         }
 
         undoButton.setOnClickListener() {
@@ -244,6 +273,10 @@ class MainActivity : AppCompatActivity() {
         } else {
             tmp = addNumber(tmp,num)
         }
+        isTyping = true
+
+        var str : String = tmp.toString() + "." + tmpFloat.toString()
+        textView1.text=str
     }
     fun addNumber(oryginal: Int, numberToAdd: Int ): Int{
             val str = oryginal.toString()
