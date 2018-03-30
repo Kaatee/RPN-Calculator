@@ -13,11 +13,14 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.kasia.rpncalculator.R.layout.activity_main
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.Math.pow
+import java.lang.Math.sqrt
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
+    //val listView = findViewById<ListView>(R.id.listView)
     var stackOfNumbers = ArrayList<Float>()
     var tmp : Int = 0;
     var tmpFloat: Int = 0
@@ -106,26 +109,74 @@ class MainActivity : AppCompatActivity() {
 
         plusButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: +", Toast.LENGTH_LONG).show();
+            var stackSize: Int = stackOfNumbers.size
+            var sum: Float
+            sum = stackOfNumbers.get(stackSize-1) + stackOfNumbers.get(stackSize-2)
+            stackOfNumbers.removeAt(stackSize-1)
+            stackOfNumbers.removeAt(stackSize-2)
+            stackOfNumbers.add(sum)
+            val listView = findViewById<ListView>(R.id.listView)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
+
         }
 
         minusButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: -", Toast.LENGTH_LONG).show();
+            var stackSize: Int = stackOfNumbers.size
+            var dif: Float
+            dif = stackOfNumbers.get(stackSize-2) - stackOfNumbers.get(stackSize-1)
+            stackOfNumbers.removeAt(stackSize-1)
+            stackOfNumbers.removeAt(stackSize-2)
+            stackOfNumbers.add(dif)
+            val listView = findViewById<ListView>(R.id.listView)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
         }
 
         multiplicateButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: *", Toast.LENGTH_LONG).show();
+            var stackSize: Int = stackOfNumbers.size
+            var result: Float
+            result = stackOfNumbers.get(stackSize-2) * stackOfNumbers.get(stackSize-1)
+            stackOfNumbers.removeAt(stackSize-1)
+            stackOfNumbers.removeAt(stackSize-2)
+            stackOfNumbers.add(result)
+            val listView = findViewById<ListView>(R.id.listView)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
         }
 
         devButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: /", Toast.LENGTH_LONG).show();
+            var stackSize: Int = stackOfNumbers.size
+            var result: Float
+            result = stackOfNumbers.get(stackSize-2) / stackOfNumbers.get(stackSize-1)
+            stackOfNumbers.removeAt(stackSize-1)
+            stackOfNumbers.removeAt(stackSize-2)
+            stackOfNumbers.add(result)
+            val listView = findViewById<ListView>(R.id.listView)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
         }
 
         powButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: pow", Toast.LENGTH_LONG).show();
+            var stackSize: Int = stackOfNumbers.size
+            var result: Double
+            result = pow((stackOfNumbers.get(stackSize-2)).toDouble(), (stackOfNumbers.get(stackSize-1)).toDouble())
+            stackOfNumbers.removeAt(stackSize-1)
+            stackOfNumbers.removeAt(stackSize-2)
+            stackOfNumbers.add(result.toFloat())
+            val listView = findViewById<ListView>(R.id.listView)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
         }
 
         sqrtButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: sqrt", Toast.LENGTH_LONG).show();
+            var stackSize: Int = stackOfNumbers.size
+            var result: Double
+            result = sqrt((stackOfNumbers.get(stackSize-1)).toDouble())
+            stackOfNumbers.removeAt(stackSize-1)
+            stackOfNumbers.add(result.toFloat())
+            val listView = findViewById<ListView>(R.id.listView)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
         }
 
         dropButton.setOnClickListener() {

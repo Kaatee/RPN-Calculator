@@ -131,7 +131,7 @@
         android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:onClick="buttonMinusHandle"
-        android:text="+"
+        android:text="-"
         app:layout_constraintStart_toEndOf="@+id/button3"
         app:layout_constraintTop_toBottomOf="@+id/settingsButton" />
 
