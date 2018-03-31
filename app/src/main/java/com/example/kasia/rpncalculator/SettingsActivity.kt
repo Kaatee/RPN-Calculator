@@ -12,18 +12,20 @@ class SettingsActivity : AppCompatActivity() {
 
     lateinit var option: Spinner
     lateinit var editText2 : EditText
+    lateinit var switch1 : Switch
     var color: String = ""
-    var floatPrecision : Int = 2 //default
-    var darkButtons : Int = 0 // !!!!!!!!!!!!!!!!! ustawić !!!!!!!!
+    var floatPrecision : Int = 3 //default
+    var darkButtons : Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-//getIntegerArrayListExtra(String name);
+
+
         //spinner handle
         option = findViewById(R.id.spinner)
-        val colors = arrayOf("Szary","Czerwony","Niebieski","Zielony","Bialy","Czarny","Zolty")
+        val colors = arrayOf("Szary","Czerwony","Niebieski","Zielony","Bialy","Zolty")
         option.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, colors)
 
         option.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -36,14 +38,21 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
-
+        //reading value from switch
         editText2 = findViewById(R.id.editText2)
+        switch1 = findViewById(R.id.switch1)
+
 
         zastosujButton.setOnClickListener() {
             floatPrecision = (editText2.getText().toString()).toInt()
             Toast.makeText(getApplicationContext(), "FloatPrecision"+floatPrecision, Toast.LENGTH_LONG).show();
+
             val intent = Intent(this, MainActivity::class.java )
 
+            if(switch1.isChecked) {
+                darkButtons=1
+            }
+            //Toast.makeText(getApplicationContext(), "SWITCH"+darkButtons, Toast.LENGTH_LONG).show();
             var stackk = ArrayList<Float>()
             stackk.addAll(getIntent().getSerializableExtra("StackOfNumbers") as ArrayList<Float>)
             intent.putExtra("stack", stackk)

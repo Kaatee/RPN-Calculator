@@ -12,6 +12,7 @@ import android.widget.BaseAdapter
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import com.example.kasia.rpncalculator.R.id.changeSignButton
 import com.example.kasia.rpncalculator.R.id.listView
 import com.example.kasia.rpncalculator.R.layout.activity_main
 import kotlinx.android.synthetic.main.activity_main.*
@@ -40,30 +41,44 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
 
-        val listView = findViewById<ListView>(R.id.listView)
-        listView.adapter = MyCustomAdapter(this, stackOfNumbers)
+
 
         FloatPrecision = getIntent().getIntExtra("FloatPrecision", 3)
         DarkButtons = getIntent().getIntExtra("DarkButtons",0)
         isChanging= getIntent().getIntExtra("isChanging",0)
         if(isChanging==1)  stackOfNumbers.addAll(getIntent().getSerializableExtra("stack") as ArrayList<Float>)
 
+        val listView: ListView = findViewById<ListView>(R.id.listView)
+        listView.adapter = MyCustomAdapter(this, stackOfNumbers,FloatPrecision)
 
         if(isChanging==1){
+
+            if(DarkButtons==1){
+                changeButtonToDark()
+            }
+
             val listView = findViewById<ListView>(R.id.listView)
             ListViewColor=  getIntent().getStringExtra("ListViewColor");
 
             //changing ListView color
-            if(ListViewColor.equals("Szary")) listView.setBackgroundColor(Color.GRAY)
-            if(ListViewColor.equals("Czerwony")) listView.setBackgroundColor(Color.RED)
-            if(ListViewColor.equals("Niebieski")) listView.setBackgroundColor(Color.BLUE)
-            if(ListViewColor.equals("Zielony")) listView.setBackgroundColor(Color.GREEN)
-            if(ListViewColor.equals("Bialy")) listView.setBackgroundColor(Color.WHITE)
-            if(ListViewColor.equals("Czarny")){
-                listView.setBackgroundColor(Color.BLACK)
-                //listView.
+            if(ListViewColor.equals("Szary")) {
+                listView.setBackgroundColor(Color.GRAY)
             }
-            if(ListViewColor.equals("Zolty")) listView.setBackgroundColor(Color.YELLOW)
+            if(ListViewColor.equals("Czerwony")) {
+                listView.setBackgroundColor(Color.RED)
+            }
+            if(ListViewColor.equals("Niebieski")) {
+                listView.setBackgroundColor(Color.BLUE)
+            }
+            if(ListViewColor.equals("Zielony")) {
+                listView.setBackgroundColor(Color.GREEN)
+            }
+            if(ListViewColor.equals("Bialy")) {
+                listView.setBackgroundColor(Color.WHITE)
+            }
+            if(ListViewColor.equals("Zolty")) {
+                listView.setBackgroundColor(Color.YELLOW)
+            }
         }
 
 
@@ -127,7 +142,7 @@ class MainActivity : AppCompatActivity() {
             enter()
             textView1.text = ""
             val listView = findViewById<ListView>(R.id.listView)
-            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers,FloatPrecision)
         }
 
         plusButton.setOnClickListener() {
@@ -143,14 +158,10 @@ class MainActivity : AppCompatActivity() {
             stackOfNumbers.removeAt(stackSize-1)
             stackOfNumbers.removeAt(stackSize-2)
 
-            var x:String = sum.toString()
-            var indexOfDot:Int = x.indexOf(".")
-            x=x.substring(startIndex = 0, endIndex = indexOfDot+FloatPrecision-1)
-
-            stackOfNumbers.add(x.toFloat())
+            stackOfNumbers.add(sum.toFloat())
             Toast.makeText(getApplicationContext(), "Hist Arr 2 : "+historyArray, Toast.LENGTH_LONG).show();
             val listView = findViewById<ListView>(R.id.listView)
-            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers,FloatPrecision)
 
         }
 
@@ -168,7 +179,7 @@ class MainActivity : AppCompatActivity() {
             stackOfNumbers.removeAt(stackSize-2)
             stackOfNumbers.add(dif)
             val listView = findViewById<ListView>(R.id.listView)
-            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers,FloatPrecision)
         }
 
         multiplicateButton.setOnClickListener() {
@@ -184,13 +195,9 @@ class MainActivity : AppCompatActivity() {
             stackOfNumbers.removeAt(stackSize-1)
             stackOfNumbers.removeAt(stackSize-2)
 
-            var x:String = result.toString()
-            var indexOfDot:Int = x.indexOf(".")
-            x=x.substring(startIndex = 0, endIndex = indexOfDot+FloatPrecision-1)
-
-            stackOfNumbers.add(x.toFloat())
+            stackOfNumbers.add(result.toFloat())
             val listView = findViewById<ListView>(R.id.listView)
-            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers,FloatPrecision)
         }
 
         devButton.setOnClickListener() {
@@ -206,13 +213,9 @@ class MainActivity : AppCompatActivity() {
             stackOfNumbers.removeAt(stackSize-1)
             stackOfNumbers.removeAt(stackSize-2)
 
-            var x:String = result.toString()
-            var indexOfDot:Int = x.indexOf(".")
-            x=x.substring(startIndex = 0, endIndex = indexOfDot+FloatPrecision-1)
-
-            stackOfNumbers.add(x.toFloat())
+            stackOfNumbers.add(result)
             val listView = findViewById<ListView>(R.id.listView)
-            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers,FloatPrecision)
         }
 
         powButton.setOnClickListener() {
@@ -228,13 +231,9 @@ class MainActivity : AppCompatActivity() {
             stackOfNumbers.removeAt(stackSize-1)
             stackOfNumbers.removeAt(stackSize-2)
 
-            var x:String = result.toString()
-            var indexOfDot:Int = x.indexOf(".")
-            x=x.substring(startIndex = 0, endIndex = indexOfDot+FloatPrecision-1)
-
-            stackOfNumbers.add(x.toFloat())
+            stackOfNumbers.add(result.toFloat())
             val listView = findViewById<ListView>(R.id.listView)
-            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers,FloatPrecision)
         }
 
         sqrtButton.setOnClickListener() {
@@ -249,13 +248,9 @@ class MainActivity : AppCompatActivity() {
             result = sqrt((stackOfNumbers.get(stackSize-1)).toDouble())
             stackOfNumbers.removeAt(stackSize-1)
 
-            var x:String = result.toString()
-            var indexOfDot:Int = x.indexOf(".")
-            x=x.substring(startIndex = 0, endIndex = indexOfDot+FloatPrecision-1)
-
-            stackOfNumbers.add(x.toFloat())
+            stackOfNumbers.add(result.toFloat())
             val listView = findViewById<ListView>(R.id.listView)
-            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers,FloatPrecision)
         }
 
         dropButton.setOnClickListener() {
@@ -267,7 +262,7 @@ class MainActivity : AppCompatActivity() {
 
             stackOfNumbers.removeAt(stackOfNumbers.size-1)
             val listView = findViewById<ListView>(R.id.listView)
-            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers,FloatPrecision)
         }
 
         swapButton.setOnClickListener() {
@@ -284,7 +279,7 @@ class MainActivity : AppCompatActivity() {
             stackOfNumbers.add(tmp1)
             stackOfNumbers.add(tmp2)
             val listView = findViewById<ListView>(R.id.listView)
-            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers,FloatPrecision)
         }
 
         acButton.setOnClickListener() {
@@ -296,7 +291,7 @@ class MainActivity : AppCompatActivity() {
 
             stackOfNumbers.clear()
             val listView = findViewById<ListView>(R.id.listView)
-            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers,FloatPrecision)
         }
 
         changeSignButton.setOnClickListener() {
@@ -310,7 +305,7 @@ class MainActivity : AppCompatActivity() {
             stackOfNumbers.removeAt(stackOfNumbers.size-1)
             stackOfNumbers.add((-1)*tmp)
             val listView = findViewById<ListView>(R.id.listView)
-            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers,FloatPrecision)
         }
 
         undoButton.setOnClickListener() {
@@ -322,7 +317,7 @@ class MainActivity : AppCompatActivity() {
             historyArray.removeAt(historyArray.size-1)
 
             val listView = findViewById<ListView>(R.id.listView)
-            listView.adapter = MyCustomAdapter(this, stackOfNumbers)
+            listView.adapter = MyCustomAdapter(this, stackOfNumbers, FloatPrecision)
 
         }
 
@@ -337,19 +332,25 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private class MyCustomAdapter(context: Context, list: ArrayList<Float>): BaseAdapter() {
+    private class MyCustomAdapter(context: Context, list: ArrayList<Float>,FloatPrecision: Int): BaseAdapter() {
 
-
+        private val nfloatPrec : Int
         private val nContext: Context
         private val nlist: ArrayList<Float>
         init{
             nContext = context
             nlist = list
+            nfloatPrec = FloatPrecision
 
         }
+
         override fun getView(position: Int, convertView: View?, viewGroup: ViewGroup?): View {
             val textView = TextView(nContext)
-            textView.text = "$position: ${nlist.get(position)}"
+            var x : String= nlist.get(position).toString()
+            x=cutToProperPrecision(x)
+            var y: Float = x.toFloat()
+            //textView.text = "$position: ${nlist.get(position)}"
+            textView.text = "$position: ${y}"
 
 
             //val view = super.getView(position, convertView, viewGroup)
@@ -357,6 +358,20 @@ class MainActivity : AppCompatActivity() {
 
 
             return textView
+        }
+
+        fun cutToProperPrecision(tmp1:String): String{
+            var tmp2: String =tmp1
+            if(tmp1.contains(".")){
+                var indexOfDot:Int = tmp1.indexOf(".")
+                if(indexOfDot+nfloatPrec < tmp1.length){
+                    var endIdx: Int = indexOfDot+nfloatPrec+1
+                    //Toast.makeText(getApplicationContext(), "idxOfDot:  " + indexOfDot + "  endIdx "+endIdx+" floatPrec: "+FloatPrecision, Toast.LENGTH_LONG).show()
+                    tmp2 =tmp1.substring(startIndex = 0, endIndex = endIdx)
+                }
+            }
+
+            return tmp2
         }
 
         override fun getItem(position: Int): Any {
@@ -384,9 +399,9 @@ class MainActivity : AppCompatActivity() {
             if(tmp.endsWith(".")){
                 tmp=tmp+"0"
             }
-            var indexOfDot:Int = tmp.indexOf(".")
-            //tmp=tmp.substring(startIndex = 0, endIndex = indexOfDot+FloatPrecision-1)
-            //Toast.makeText(getApplicationContext(), "Dodalem: "+tmp+"Prec"+FloatPrecision, Toast.LENGTH_LONG).show();
+
+            //Toast.makeText(getApplicationContext(), "Dodalem: "+tmp+"Prec"+FloatPrecision, Toast.LENGTH_LONG).show()
+
             stackOfNumbers.add(tmp.toFloat())
             isTyping = false
             tmp=""
@@ -396,6 +411,61 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    fun changeButtonToDark(){
+        plusButton.setBackgroundColor(Color.parseColor("#444444"))
+        plusButton.setTextColor(Color.parseColor("#ffffff"))
+        minusButton.setBackgroundColor(Color.parseColor("#444444"))
+        minusButton.setTextColor(Color.parseColor("#ffffff"))
+        devButton.setBackgroundColor(Color.parseColor("#444444"))
+        devButton.setTextColor(Color.parseColor("#ffffff"))
+        multiplicateButton.setBackgroundColor(Color.parseColor("#444444"))
+        multiplicateButton.setTextColor(Color.parseColor("#ffffff"))
+        sqrtButton.setBackgroundColor(Color.parseColor("#444444"))
+        sqrtButton.setTextColor(Color.parseColor("#ffffff"))
+        cButton.setBackgroundColor(Color.parseColor("#444444"))
+        cButton.setTextColor(Color.parseColor("#ffffff"))
+        button0.setBackgroundColor(Color.parseColor("#444444"))
+        button0.setTextColor(Color.parseColor("#ffffff"))
+        button1.setBackgroundColor(Color.parseColor("#444444"))
+        button1.setTextColor(Color.parseColor("#ffffff"))
+        button2.setBackgroundColor(Color.parseColor("#444444"))
+        button2.setTextColor(Color.parseColor("#ffffff"))
+        button3.setBackgroundColor(Color.parseColor("#444444"))
+        button3.setTextColor(Color.parseColor("#ffffff"))
+        button4.setBackgroundColor(Color.parseColor("#444444"))
+        button4.setTextColor(Color.parseColor("#ffffff"))
+        button5.setBackgroundColor(Color.parseColor("#444444"))
+        button5.setTextColor(Color.parseColor("#ffffff"))
+        button6.setBackgroundColor(Color.parseColor("#444444"))
+        button6.setTextColor(Color.parseColor("#ffffff"))
+        button7.setBackgroundColor(Color.parseColor("#444444"))
+        button7.setTextColor(Color.parseColor("#ffffff"))
+        button8.setBackgroundColor(Color.parseColor("#444444"))
+        button8.setTextColor(Color.parseColor("#ffffff"))
+        button9.setBackgroundColor(Color.parseColor("#444444"))
+        button9.setTextColor(Color.parseColor("#ffffff"))
+        dropButton.setBackgroundColor(Color.parseColor("#444444"))
+        dropButton.setTextColor(Color.parseColor("#ffffff"))
+        enterButton.setBackgroundColor(Color.parseColor("#444444"))
+        enterButton.setTextColor(Color.parseColor("#ffffff"))
+        settingsButton.setBackgroundColor(Color.parseColor("#444444"))
+        settingsButton.setTextColor(Color.parseColor("#ffffff"))
+        swapButton.setBackgroundColor(Color.parseColor("#444444"))
+        swapButton.setTextColor(Color.parseColor("#ffffff"))
+        acButton.setBackgroundColor(Color.parseColor("#444444"))
+        acButton.setTextColor(Color.parseColor("#ffffff"))
+        dotButton.setBackgroundColor(Color.parseColor("#444444"))
+        dotButton.setTextColor(Color.parseColor("#ffffff"))
+        changeSignButton.setBackgroundColor(Color.parseColor("#444444"))
+        changeSignButton.setTextColor(Color.parseColor("#ffffff"))
+        powButton.setBackgroundColor(Color.parseColor("#444444"))
+        powButton.setTextColor(Color.parseColor("#ffffff"))
+        undoButton.setBackgroundColor(Color.parseColor("#444444"))
+        undoButton.setTextColor(Color.parseColor("#ffffff"))
+    }
+
+
 
 
 
