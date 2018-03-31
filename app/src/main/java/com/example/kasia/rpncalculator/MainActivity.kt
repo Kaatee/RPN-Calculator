@@ -3,6 +3,7 @@ package com.example.kasia.rpncalculator
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.BaseAdapter
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import com.example.kasia.rpncalculator.R.id.listView
 import com.example.kasia.rpncalculator.R.layout.activity_main
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Math.pow
@@ -27,11 +29,30 @@ class MainActivity : AppCompatActivity() {
     var isFloat : Boolean = false
     var isTyping :Boolean = false
 
+    var listViewColor = ""
+    var FloatPrecision :Int =3
+    var DarkButtons: Int = 0
+    var isChanging: Int = 0
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
 
+        //setting the appearance according to the settings
+        getIntent().getStringExtra("ListViewColor");
+        FloatPrecision = getIntent().getIntExtra("FloatPrecision", 3)
+        DarkButtons = getIntent().getIntExtra("DarkButtons",0)
+        isChanging= getIntent().getIntExtra("isChanging",0)
+
+
+        if(isChanging==1){
+            Toast.makeText(getApplicationContext(), "JESTES TUUU", Toast.LENGTH_LONG).show();
+            val listView = findViewById<ListView>(R.id.listView)
+            listView.setBackgroundColor(Color.BLUE)
+
+        }
         //val textView = findViewById<ListView>(R.id.textView)
 
         button0.setOnClickListener() {
@@ -278,6 +299,7 @@ class MainActivity : AppCompatActivity() {
     }
     private class MyCustomAdapter(context: Context, list: ArrayList<Float>): BaseAdapter() {
 
+
         private val nContext: Context
         private val nlist: ArrayList<Float>
         init{
@@ -287,8 +309,13 @@ class MainActivity : AppCompatActivity() {
         }
         override fun getView(position: Int, convertView: View?, viewGroup: ViewGroup?): View {
             val textView = TextView(nContext)
-            //textView.text = "Row for ListView $position"
             textView.text = "$position: ${nlist.get(position)}"
+
+
+            //val view = super.getView(position, convertView, viewGroup)
+            //view.setBackgroundColor(Color.parseColor("#F0F0F0"))
+
+
             return textView
         }
 
@@ -303,7 +330,6 @@ class MainActivity : AppCompatActivity() {
         override fun getCount(): Int {
             //return 5
             return nlist.size
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
 

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RPN Calculator</string>
+    <string name="select_color">Select color</string>
 </resources>
