@@ -21,10 +21,12 @@ class MainActivity : AppCompatActivity() {
 
     //val listView = findViewById<ListView>(R.id.listView)
     var stackOfNumbers = ArrayList<Float>()
-    val historyArray = ArrayList<ArrayList<Float>>()
+    var historyArray = ArrayList<ArrayList<Float>>()
+    var historyTmp = ArrayList<Float>()
     var tmp : String = "";
     var isFloat : Boolean = false
     var isTyping :Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,14 +99,18 @@ class MainActivity : AppCompatActivity() {
 
         plusButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: +", Toast.LENGTH_LONG).show();
-            historyArray.add(stackOfNumbers)
-            Toast.makeText(getApplicationContext(), "Hist Arr : "+historyArray, Toast.LENGTH_LONG).show();
+
+            historyTmp.clear()
+            historyTmp.addAll(stackOfNumbers)
+            historyArray.add(historyTmp)
+
             var stackSize: Int = stackOfNumbers.size
             var sum: Float
             sum = stackOfNumbers.get(stackSize-1) + stackOfNumbers.get(stackSize-2)
             stackOfNumbers.removeAt(stackSize-1)
             stackOfNumbers.removeAt(stackSize-2)
             stackOfNumbers.add(sum)
+            Toast.makeText(getApplicationContext(), "Hist Arr 2 : "+historyArray, Toast.LENGTH_LONG).show();
             val listView = findViewById<ListView>(R.id.listView)
             listView.adapter = MyCustomAdapter(this, stackOfNumbers)
 
@@ -112,7 +118,11 @@ class MainActivity : AppCompatActivity() {
 
         minusButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: -", Toast.LENGTH_LONG).show();
-            historyArray.add(stackOfNumbers)
+
+            historyTmp.clear()
+            historyTmp.addAll(stackOfNumbers)
+            historyArray.add(historyTmp)
+
             var stackSize: Int = stackOfNumbers.size
             var dif: Float
             dif = stackOfNumbers.get(stackSize-2) - stackOfNumbers.get(stackSize-1)
@@ -125,7 +135,11 @@ class MainActivity : AppCompatActivity() {
 
         multiplicateButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: *", Toast.LENGTH_LONG).show();
-            historyArray.add(stackOfNumbers)
+
+            historyTmp.clear()
+            historyTmp.addAll(stackOfNumbers)
+            historyArray.add(historyTmp)
+
             var stackSize: Int = stackOfNumbers.size
             var result: Float
             result = stackOfNumbers.get(stackSize-2) * stackOfNumbers.get(stackSize-1)
@@ -138,7 +152,11 @@ class MainActivity : AppCompatActivity() {
 
         devButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: /", Toast.LENGTH_LONG).show();
-            historyArray.add(stackOfNumbers)
+
+            historyTmp.clear()
+            historyTmp.addAll(stackOfNumbers)
+            historyArray.add(historyTmp)
+
             var stackSize: Int = stackOfNumbers.size
             var result: Float
             result = stackOfNumbers.get(stackSize-2) / stackOfNumbers.get(stackSize-1)
@@ -151,7 +169,11 @@ class MainActivity : AppCompatActivity() {
 
         powButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: pow", Toast.LENGTH_LONG).show();
-            historyArray.add(stackOfNumbers)
+
+            historyTmp.clear()
+            historyTmp.addAll(stackOfNumbers)
+            historyArray.add(historyTmp)
+
             var stackSize: Int = stackOfNumbers.size
             var result: Double
             result = pow((stackOfNumbers.get(stackSize-2)).toDouble(), (stackOfNumbers.get(stackSize-1)).toDouble())
@@ -164,7 +186,11 @@ class MainActivity : AppCompatActivity() {
 
         sqrtButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: sqrt", Toast.LENGTH_LONG).show();
-            historyArray.add(stackOfNumbers)
+
+            historyTmp.clear()
+            historyTmp.addAll(stackOfNumbers)
+            historyArray.add(historyTmp)
+
             var stackSize: Int = stackOfNumbers.size
             var result: Double
             result = sqrt((stackOfNumbers.get(stackSize-1)).toDouble())
@@ -176,7 +202,11 @@ class MainActivity : AppCompatActivity() {
 
         dropButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: DROP", Toast.LENGTH_LONG).show();
-            historyArray.add(stackOfNumbers)
+
+            historyTmp.clear()
+            historyTmp.addAll(stackOfNumbers)
+            historyArray.add(historyTmp)
+
             stackOfNumbers.removeAt(stackOfNumbers.size-1)
             val listView = findViewById<ListView>(R.id.listView)
             listView.adapter = MyCustomAdapter(this, stackOfNumbers)
@@ -184,7 +214,11 @@ class MainActivity : AppCompatActivity() {
 
         swapButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: SWAP", Toast.LENGTH_LONG).show();
-            historyArray.add(stackOfNumbers)
+
+            historyTmp.clear()
+            historyTmp.addAll(stackOfNumbers)
+            historyArray.add(historyTmp)
+
             val tmp1: Float = stackOfNumbers.get(stackOfNumbers.size-1)
             val tmp2: Float = stackOfNumbers.get(stackOfNumbers.size-2)
             stackOfNumbers.removeAt(stackOfNumbers.size-1)
@@ -197,7 +231,11 @@ class MainActivity : AppCompatActivity() {
 
         acButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: AC", Toast.LENGTH_LONG).show();
-            historyArray.add(stackOfNumbers)
+
+            historyTmp.clear()
+            historyTmp.addAll(stackOfNumbers)
+            historyArray.add(historyTmp)
+
             stackOfNumbers.clear()
             val listView = findViewById<ListView>(R.id.listView)
             listView.adapter = MyCustomAdapter(this, stackOfNumbers)
@@ -205,7 +243,11 @@ class MainActivity : AppCompatActivity() {
 
         changeSignButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: +-", Toast.LENGTH_LONG).show();
-            historyArray.add(stackOfNumbers)
+
+            historyTmp.clear()
+            historyTmp.addAll(stackOfNumbers)
+            historyArray.add(historyTmp)
+
             val tmp : Float = stackOfNumbers.get(stackOfNumbers.size-1)
             stackOfNumbers.removeAt(stackOfNumbers.size-1)
             stackOfNumbers.add((-1)*tmp)
@@ -214,9 +256,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         undoButton.setOnClickListener() {
-            Toast.makeText(getApplicationContext(), "Kliknales: UNDO", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Kliknales: UNDO", Toast.LENGTH_LONG).show();
             stackOfNumbers.clear()
-            Toast.makeText(getApplicationContext(), "Hist Arr : "+historyArray, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Hist Array : "+historyArray, Toast.LENGTH_LONG).show();
             stackOfNumbers.addAll(historyArray.get(historyArray.size-1))
             //Toast.makeText(getApplicationContext(), "Kliknales: UNDO : "+stackOfNumbers, Toast.LENGTH_LONG).show();
             historyArray.removeAt(historyArray.size-1)
