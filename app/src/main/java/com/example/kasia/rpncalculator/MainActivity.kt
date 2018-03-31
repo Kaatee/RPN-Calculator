@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     var isFloat : Boolean = false
     var isTyping :Boolean = false
 
-    var listViewColor = ""
+    var ListViewColor :String = "Czerwony"
     var FloatPrecision :Int =3
     var DarkButtons: Int = 0
     var isChanging: Int = 0
@@ -40,20 +40,32 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
 
-        //setting the appearance according to the settings
-        getIntent().getStringExtra("ListViewColor");
+        val listView = findViewById<ListView>(R.id.listView)
+        listView.adapter = MyCustomAdapter(this, stackOfNumbers)
+
         FloatPrecision = getIntent().getIntExtra("FloatPrecision", 3)
         DarkButtons = getIntent().getIntExtra("DarkButtons",0)
         isChanging= getIntent().getIntExtra("isChanging",0)
+        if(isChanging==1)  stackOfNumbers.addAll(getIntent().getSerializableExtra("stack") as ArrayList<Float>)
 
 
         if(isChanging==1){
-            Toast.makeText(getApplicationContext(), "JESTES TUUU", Toast.LENGTH_LONG).show();
             val listView = findViewById<ListView>(R.id.listView)
-            listView.setBackgroundColor(Color.BLUE)
+            ListViewColor=  getIntent().getStringExtra("ListViewColor");
 
+            //changing ListView color
+            if(ListViewColor.equals("Szary")) listView.setBackgroundColor(Color.GRAY)
+            if(ListViewColor.equals("Czerwony")) listView.setBackgroundColor(Color.RED)
+            if(ListViewColor.equals("Niebieski")) listView.setBackgroundColor(Color.BLUE)
+            if(ListViewColor.equals("Zielony")) listView.setBackgroundColor(Color.GREEN)
+            if(ListViewColor.equals("Bialy")) listView.setBackgroundColor(Color.WHITE)
+            if(ListViewColor.equals("Czarny")){
+                listView.setBackgroundColor(Color.BLACK)
+                //listView.
+            }
+            if(ListViewColor.equals("Zolty")) listView.setBackgroundColor(Color.YELLOW)
         }
-        //val textView = findViewById<ListView>(R.id.textView)
+
 
         button0.setOnClickListener() {
             makeNum(0)
@@ -130,7 +142,12 @@ class MainActivity : AppCompatActivity() {
             sum = stackOfNumbers.get(stackSize-1) + stackOfNumbers.get(stackSize-2)
             stackOfNumbers.removeAt(stackSize-1)
             stackOfNumbers.removeAt(stackSize-2)
-            stackOfNumbers.add(sum)
+
+            var x:String = sum.toString()
+            var indexOfDot:Int = x.indexOf(".")
+            x=x.substring(startIndex = 0, endIndex = indexOfDot+FloatPrecision-1)
+
+            stackOfNumbers.add(x.toFloat())
             Toast.makeText(getApplicationContext(), "Hist Arr 2 : "+historyArray, Toast.LENGTH_LONG).show();
             val listView = findViewById<ListView>(R.id.listView)
             listView.adapter = MyCustomAdapter(this, stackOfNumbers)
@@ -166,7 +183,12 @@ class MainActivity : AppCompatActivity() {
             result = stackOfNumbers.get(stackSize-2) * stackOfNumbers.get(stackSize-1)
             stackOfNumbers.removeAt(stackSize-1)
             stackOfNumbers.removeAt(stackSize-2)
-            stackOfNumbers.add(result)
+
+            var x:String = result.toString()
+            var indexOfDot:Int = x.indexOf(".")
+            x=x.substring(startIndex = 0, endIndex = indexOfDot+FloatPrecision-1)
+
+            stackOfNumbers.add(x.toFloat())
             val listView = findViewById<ListView>(R.id.listView)
             listView.adapter = MyCustomAdapter(this, stackOfNumbers)
         }
@@ -183,7 +205,12 @@ class MainActivity : AppCompatActivity() {
             result = stackOfNumbers.get(stackSize-2) / stackOfNumbers.get(stackSize-1)
             stackOfNumbers.removeAt(stackSize-1)
             stackOfNumbers.removeAt(stackSize-2)
-            stackOfNumbers.add(result)
+
+            var x:String = result.toString()
+            var indexOfDot:Int = x.indexOf(".")
+            x=x.substring(startIndex = 0, endIndex = indexOfDot+FloatPrecision-1)
+
+            stackOfNumbers.add(x.toFloat())
             val listView = findViewById<ListView>(R.id.listView)
             listView.adapter = MyCustomAdapter(this, stackOfNumbers)
         }
@@ -200,7 +227,12 @@ class MainActivity : AppCompatActivity() {
             result = pow((stackOfNumbers.get(stackSize-2)).toDouble(), (stackOfNumbers.get(stackSize-1)).toDouble())
             stackOfNumbers.removeAt(stackSize-1)
             stackOfNumbers.removeAt(stackSize-2)
-            stackOfNumbers.add(result.toFloat())
+
+            var x:String = result.toString()
+            var indexOfDot:Int = x.indexOf(".")
+            x=x.substring(startIndex = 0, endIndex = indexOfDot+FloatPrecision-1)
+
+            stackOfNumbers.add(x.toFloat())
             val listView = findViewById<ListView>(R.id.listView)
             listView.adapter = MyCustomAdapter(this, stackOfNumbers)
         }
@@ -216,7 +248,12 @@ class MainActivity : AppCompatActivity() {
             var result: Double
             result = sqrt((stackOfNumbers.get(stackSize-1)).toDouble())
             stackOfNumbers.removeAt(stackSize-1)
-            stackOfNumbers.add(result.toFloat())
+
+            var x:String = result.toString()
+            var indexOfDot:Int = x.indexOf(".")
+            x=x.substring(startIndex = 0, endIndex = indexOfDot+FloatPrecision-1)
+
+            stackOfNumbers.add(x.toFloat())
             val listView = findViewById<ListView>(R.id.listView)
             listView.adapter = MyCustomAdapter(this, stackOfNumbers)
         }
@@ -292,11 +329,14 @@ class MainActivity : AppCompatActivity() {
         settingsButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: SETTINGS", Toast.LENGTH_LONG).show();
             val intent = Intent(this, SettingsActivity::class.java )
+            intent.putExtra("StackOfNumbers", stackOfNumbers)
             startActivity(intent)
         }
 
 
     }
+
+
     private class MyCustomAdapter(context: Context, list: ArrayList<Float>): BaseAdapter() {
 
 
@@ -344,6 +384,9 @@ class MainActivity : AppCompatActivity() {
             if(tmp.endsWith(".")){
                 tmp=tmp+"0"
             }
+            var indexOfDot:Int = tmp.indexOf(".")
+            //tmp=tmp.substring(startIndex = 0, endIndex = indexOfDot+FloatPrecision-1)
+            //Toast.makeText(getApplicationContext(), "Dodalem: "+tmp+"Prec"+FloatPrecision, Toast.LENGTH_LONG).show();
             stackOfNumbers.add(tmp.toFloat())
             isTyping = false
             tmp=""

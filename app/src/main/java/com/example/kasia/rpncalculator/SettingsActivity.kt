@@ -20,10 +20,10 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-
+//getIntegerArrayListExtra(String name);
         //spinner handle
         option = findViewById(R.id.spinner)
-        val colors = arrayOf("Czerwony","Niebieski","Zielony","Bialy","Szary","Czarny")
+        val colors = arrayOf("Szary","Czerwony","Niebieski","Zielony","Bialy","Czarny","Zolty")
         option.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, colors)
 
         option.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -43,6 +43,10 @@ class SettingsActivity : AppCompatActivity() {
             floatPrecision = (editText2.getText().toString()).toInt()
             Toast.makeText(getApplicationContext(), "FloatPrecision"+floatPrecision, Toast.LENGTH_LONG).show();
             val intent = Intent(this, MainActivity::class.java )
+
+            var stackk = ArrayList<Float>()
+            stackk.addAll(getIntent().getSerializableExtra("StackOfNumbers") as ArrayList<Float>)
+            intent.putExtra("stack", stackk)
             intent.putExtra("ListViewColor", color)
             intent.putExtra("FloatPrecision", floatPrecision)
             intent.putExtra("DarkButtons", darkButtons)
