@@ -60,24 +60,24 @@ class MainActivity : AppCompatActivity() {
             val listView = findViewById<ListView>(R.id.listView)
             ListViewColor=  getIntent().getStringExtra("ListViewColor");
 
-            //changing ListView color
+            //changing background color
             if(ListViewColor.equals("Szary")) {
-                listView.setBackgroundColor(Color.GRAY)
+                background1.setBackgroundColor(Color.GRAY)
             }
             if(ListViewColor.equals("Czerwony")) {
-                listView.setBackgroundColor(Color.RED)
+                background1.setBackgroundColor(Color.RED)
             }
             if(ListViewColor.equals("Niebieski")) {
-                listView.setBackgroundColor(Color.BLUE)
+                background1.setBackgroundColor(Color.BLUE)
             }
             if(ListViewColor.equals("Zielony")) {
-                listView.setBackgroundColor(Color.GREEN)
+                background1.setBackgroundColor(Color.GREEN)
             }
             if(ListViewColor.equals("Bialy")) {
-                listView.setBackgroundColor(Color.WHITE)
+                background1.setBackgroundColor(Color.WHITE)
             }
             if(ListViewColor.equals("Zolty")) {
-                listView.setBackgroundColor(Color.YELLOW)
+                background1.setBackgroundColor(Color.YELLOW)
             }
         }
 
