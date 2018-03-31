@@ -119,11 +119,12 @@
 
     <Button
         android:id="@+id/plusButton"
-        android:layout_width="0dp"
+        android:layout_width="56dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:onClick="buttonPlusHandle"
         android:text="+"
-        app:layout_constraintStart_toEndOf="@+id/settingsButton"
+        app:layout_constraintStart_toEndOf="@+id/cButton"
         app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
     <Button
@@ -131,7 +132,7 @@
         android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:onClick="buttonMinusHandle"
-        android:text="+"
+        android:text="-"
         app:layout_constraintStart_toEndOf="@+id/button3"
         app:layout_constraintTop_toBottomOf="@+id/settingsButton" />
 
@@ -165,12 +166,12 @@
 
     <Button
         android:id="@+id/sqrtButton"
-        android:layout_width="0dp"
+        android:layout_width="61dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:onClick="buttonSqrtHandle"
         android:text="sqrt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/plusButton"
         app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
@@ -196,8 +197,9 @@
 
     <Button
         android:id="@+id/enterButton"
-        android:layout_width="108dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:onClick="buttonEnterHandle"
         android:text="enter"
         app:layout_constraintStart_toStartOf="parent"
@@ -225,8 +227,9 @@
 
     <Button
         android:id="@+id/settingsButton"
-        android:layout_width="0dp"
+        android:layout_width="49dp"
         android:layout_height="46dp"
+        android:layout_marginStart="8dp"
         android:onClick="buttonSettingsHandle"
         android:text="SETTINGS"
         app:layout_constraintStart_toEndOf="@+id/enterButton"
@@ -248,5 +251,16 @@
         android:layout_height="40dp"
         app:layout_constraintTop_toBottomOf="@+id/listView"
         tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/cButton"
+        android:layout_width="46dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:text="C"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/settingsButton"
+        app:layout_constraintTop_toBottomOf="@+id/textView1"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>
