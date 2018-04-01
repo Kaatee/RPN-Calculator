@@ -14,14 +14,13 @@ class SettingsActivity : AppCompatActivity() {
     lateinit var editText2 : EditText
     lateinit var switch1 : Switch
     var color: String = ""
-    var floatPrecision : Int = 3 //default
+    var floatPrecision : Int = 2 //default
     var darkButtons : Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-
 
         //spinner handle
         option = findViewById(R.id.spinner)
@@ -42,17 +41,15 @@ class SettingsActivity : AppCompatActivity() {
         editText2 = findViewById(R.id.editText2)
         switch1 = findViewById(R.id.switch1)
 
-
         zastosujButton.setOnClickListener() {
             floatPrecision = (editText2.getText().toString()).toInt()
-            Toast.makeText(getApplicationContext(), "FloatPrecision"+floatPrecision, Toast.LENGTH_LONG).show();
 
             val intent = Intent(this, MainActivity::class.java )
 
             if(switch1.isChecked) {
                 darkButtons=1
             }
-            //Toast.makeText(getApplicationContext(), "SWITCH"+darkButtons, Toast.LENGTH_LONG).show();
+
             var stackk = ArrayList<Float>()
             var historyy = ArrayList<ArrayList<Float>>()
             var tmpp : String
