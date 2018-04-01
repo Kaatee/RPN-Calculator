@@ -54,7 +54,14 @@ class SettingsActivity : AppCompatActivity() {
             }
             //Toast.makeText(getApplicationContext(), "SWITCH"+darkButtons, Toast.LENGTH_LONG).show();
             var stackk = ArrayList<Float>()
+            var historyy = ArrayList<ArrayList<Float>>()
+            var tmpp : String
             stackk.addAll(getIntent().getSerializableExtra("StackOfNumbers") as ArrayList<Float>)
+            tmpp = getIntent().getStringExtra("Tmp")
+            historyy = getIntent().getSerializableExtra("History") as  ArrayList<ArrayList<Float>>
+
+            intent.putExtra("historyy",historyy)
+            intent.putExtra("tmpp",tmpp)
             intent.putExtra("stack", stackk)
             intent.putExtra("ListViewColor", color)
             intent.putExtra("FloatPrecision", floatPrecision)

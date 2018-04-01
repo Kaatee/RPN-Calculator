@@ -22,10 +22,8 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    //val listView = findViewById<ListView>(R.id.listView)
     var stackOfNumbers = ArrayList<Float>()
     var historyArray = ArrayList<ArrayList<Float>>()
-    var historyTmp = ArrayList<Float>()
     var tmp : String = "";
     var isFloat : Boolean = false
     var isTyping :Boolean = false
@@ -34,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     var FloatPrecision :Int =3
     var DarkButtons: Int = 0
     var isChanging: Int = 0
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +43,12 @@ class MainActivity : AppCompatActivity() {
         FloatPrecision = getIntent().getIntExtra("FloatPrecision", 3)
         DarkButtons = getIntent().getIntExtra("DarkButtons",0)
         isChanging= getIntent().getIntExtra("isChanging",0)
-        if(isChanging==1)  stackOfNumbers.addAll(getIntent().getSerializableExtra("stack") as ArrayList<Float>)
+
+        if(isChanging==1)  {
+            stackOfNumbers.addAll(getIntent().getSerializableExtra("stack") as ArrayList<Float>)
+            historyArray.addAll(getIntent().getSerializableExtra("historyy") as ArrayList<ArrayList<Float>>)
+            tmp = getIntent().getStringExtra("tmpp")
+        }
 
         val listView: ListView = findViewById<ListView>(R.id.listView)
         listView.adapter = MyCustomAdapter(this, stackOfNumbers,FloatPrecision)
@@ -148,8 +150,8 @@ class MainActivity : AppCompatActivity() {
         plusButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: +", Toast.LENGTH_LONG).show();
 
-            historyTmp.clear()
-            historyTmp.addAll(stackOfNumbers)
+            var historyTmp = ArrayList<Float>()
+            historyTmp = stackOfNumbers.clone() as ArrayList<Float>
             historyArray.add(historyTmp)
 
             var stackSize: Int = stackOfNumbers.size
@@ -168,8 +170,8 @@ class MainActivity : AppCompatActivity() {
         minusButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: -", Toast.LENGTH_LONG).show();
 
-            historyTmp.clear()
-            historyTmp.addAll(stackOfNumbers)
+            var historyTmp = ArrayList<Float>()
+            historyTmp = stackOfNumbers.clone() as ArrayList<Float>
             historyArray.add(historyTmp)
 
             var stackSize: Int = stackOfNumbers.size
@@ -185,8 +187,8 @@ class MainActivity : AppCompatActivity() {
         multiplicateButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: *", Toast.LENGTH_LONG).show();
 
-            historyTmp.clear()
-            historyTmp.addAll(stackOfNumbers)
+            var historyTmp = ArrayList<Float>()
+            historyTmp = stackOfNumbers.clone() as ArrayList<Float>
             historyArray.add(historyTmp)
 
             var stackSize: Int = stackOfNumbers.size
@@ -203,8 +205,8 @@ class MainActivity : AppCompatActivity() {
         devButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: /", Toast.LENGTH_LONG).show();
 
-            historyTmp.clear()
-            historyTmp.addAll(stackOfNumbers)
+            var historyTmp = ArrayList<Float>()
+            historyTmp = stackOfNumbers.clone() as ArrayList<Float>
             historyArray.add(historyTmp)
 
             var stackSize: Int = stackOfNumbers.size
@@ -221,8 +223,8 @@ class MainActivity : AppCompatActivity() {
         powButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: pow", Toast.LENGTH_LONG).show();
 
-            historyTmp.clear()
-            historyTmp.addAll(stackOfNumbers)
+            var historyTmp = ArrayList<Float>()
+            historyTmp = stackOfNumbers.clone() as ArrayList<Float>
             historyArray.add(historyTmp)
 
             var stackSize: Int = stackOfNumbers.size
@@ -239,8 +241,8 @@ class MainActivity : AppCompatActivity() {
         sqrtButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: sqrt", Toast.LENGTH_LONG).show();
 
-            historyTmp.clear()
-            historyTmp.addAll(stackOfNumbers)
+            var historyTmp = ArrayList<Float>()
+            historyTmp = stackOfNumbers.clone() as ArrayList<Float>
             historyArray.add(historyTmp)
 
             var stackSize: Int = stackOfNumbers.size
@@ -256,8 +258,8 @@ class MainActivity : AppCompatActivity() {
         dropButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: DROP", Toast.LENGTH_LONG).show();
 
-            historyTmp.clear()
-            historyTmp.addAll(stackOfNumbers)
+            var historyTmp = ArrayList<Float>()
+            historyTmp = stackOfNumbers.clone() as ArrayList<Float>
             historyArray.add(historyTmp)
 
             stackOfNumbers.removeAt(stackOfNumbers.size-1)
@@ -268,8 +270,8 @@ class MainActivity : AppCompatActivity() {
         swapButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: SWAP", Toast.LENGTH_LONG).show();
 
-            historyTmp.clear()
-            historyTmp.addAll(stackOfNumbers)
+            var historyTmp = ArrayList<Float>()
+            historyTmp = stackOfNumbers.clone() as ArrayList<Float>
             historyArray.add(historyTmp)
 
             val tmp1: Float = stackOfNumbers.get(stackOfNumbers.size-1)
@@ -285,8 +287,8 @@ class MainActivity : AppCompatActivity() {
         acButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: AC", Toast.LENGTH_LONG).show();
 
-            historyTmp.clear()
-            historyTmp.addAll(stackOfNumbers)
+            var historyTmp = ArrayList<Float>()
+            historyTmp = stackOfNumbers.clone() as ArrayList<Float>
             historyArray.add(historyTmp)
 
             stackOfNumbers.clear()
@@ -297,8 +299,8 @@ class MainActivity : AppCompatActivity() {
         changeSignButton.setOnClickListener() {
             Toast.makeText(getApplicationContext(), "Kliknales: +-", Toast.LENGTH_LONG).show();
 
-            historyTmp.clear()
-            historyTmp.addAll(stackOfNumbers)
+            var historyTmp = ArrayList<Float>()
+            historyTmp = stackOfNumbers.clone() as ArrayList<Float>
             historyArray.add(historyTmp)
 
             val tmp : Float = stackOfNumbers.get(stackOfNumbers.size-1)
@@ -325,6 +327,8 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(getApplicationContext(), "Kliknales: SETTINGS", Toast.LENGTH_LONG).show();
             val intent = Intent(this, SettingsActivity::class.java )
             intent.putExtra("StackOfNumbers", stackOfNumbers)
+            intent.putExtra("Tmp",tmp)
+            intent.putExtra("History",historyArray)
             startActivity(intent)
         }
 
@@ -383,7 +387,7 @@ class MainActivity : AppCompatActivity() {
            }
 
         override fun getCount(): Int {
-            //return 5
+            //return 3
             return nlist.size
         }
     }
