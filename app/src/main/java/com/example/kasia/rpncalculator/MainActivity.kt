@@ -371,6 +371,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+    override public fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override public fun onPause() {
+        super.onPause()
+    }
+
     private class MyCustomAdapter(context: Context, list: ArrayList<Float>,FloatPrecision: Int): BaseAdapter() {
 
         private val nfloatPrec : Int
