@@ -351,6 +351,25 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override public fun onSaveInstanceState(outState: Bundle?) {
+        outState?.putString("Tmp1", tmp)
+        outState?.putSerializable("StackOfNumbers1", stackOfNumbers)
+        outState?.putSerializable("History1", historyArray)
+        super.onSaveInstanceState(outState)
+    }
+
+    override public fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        stackOfNumbers  = savedInstanceState!!.getSerializable("StackOfNumbers1") as ArrayList<Float>
+        historyArray =savedInstanceState!!.getSerializable("History1") as ArrayList<ArrayList<Float>>
+        tmp  = savedInstanceState!!.getString("Tmp1")
+
+        val listView = findViewById<ListView>(R.id.listView)
+        listView.adapter = MyCustomAdapter(this, stackOfNumbers, FloatPrecision)
+        textView1.text=tmp
+
+    }
 
     private class MyCustomAdapter(context: Context, list: ArrayList<Float>,FloatPrecision: Int): BaseAdapter() {
 
