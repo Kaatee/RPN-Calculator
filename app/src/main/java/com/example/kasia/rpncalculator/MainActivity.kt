@@ -248,18 +248,22 @@ class MainActivity : AppCompatActivity() {
 
         sqrtButton.setOnClickListener() {
             if(stackOfNumbers.size >0) {
-                var historyTmp = ArrayList<Float>()
-                historyTmp = stackOfNumbers.clone() as ArrayList<Float>
-                historyArray.add(historyTmp)
+                if(stackOfNumbers.get(stackOfNumbers.size-1) < 0)
+                    Toast.makeText(getApplicationContext(), "Nie mozna wyjac pierwiastka z liczby ujemnej", Toast.LENGTH_LONG).show();
+                else {
+                    var historyTmp = ArrayList<Float>()
+                    historyTmp = stackOfNumbers.clone() as ArrayList<Float>
+                    historyArray.add(historyTmp)
 
-                var stackSize: Int = stackOfNumbers.size
-                var result: Double
-                result = sqrt((stackOfNumbers.get(stackSize - 1)).toDouble())
-                stackOfNumbers.removeAt(stackSize - 1)
+                    var stackSize: Int = stackOfNumbers.size
+                    var result: Double
+                    result = sqrt((stackOfNumbers.get(stackSize - 1)).toDouble())
+                    stackOfNumbers.removeAt(stackSize - 1)
 
-                stackOfNumbers.add(result.toFloat())
-                val listView = findViewById<ListView>(R.id.listView)
-                listView.adapter = MyCustomAdapter(this, stackOfNumbers, FloatPrecision)
+                    stackOfNumbers.add(result.toFloat())
+                    val listView = findViewById<ListView>(R.id.listView)
+                    listView.adapter = MyCustomAdapter(this, stackOfNumbers, FloatPrecision)
+                }
             }
             else
                 Toast.makeText(getApplicationContext(), "Wpisz liczbe na stos", Toast.LENGTH_LONG).show();
